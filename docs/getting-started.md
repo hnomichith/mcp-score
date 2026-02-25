@@ -23,13 +23,19 @@ git clone https://github.com/tskovlund/mcp-score.git
 cd mcp-score
 ```
 
-If you have Nix + direnv:
+If you have [Devbox](https://www.jetify.com/devbox) + direnv:
 
 ```bash
 direnv allow    # sets up Python 3.13, uv, dev tools, git hooks
 ```
 
-Otherwise:
+If you have Devbox but not direnv:
+
+```bash
+devbox shell    # enter the dev environment
+```
+
+Otherwise (manual setup):
 
 ```bash
 python -m venv .venv

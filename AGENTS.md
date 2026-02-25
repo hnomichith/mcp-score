@@ -28,23 +28,33 @@ See [docs/architecture.md](docs/architecture.md) for detailed design documentati
 
 ## Dev environment
 
-Nix + uv hybrid. Nix provides Python 3.13, uv, ruff, pyright. uv manages Python packages in `.venv/`.
+Devbox + uv. Devbox provides Python 3.13, uv, ruff, pyright via Nix. uv manages Python packages in `.venv/`.
 
 ```bash
-nix develop          # or: direnv allow
-uv sync              # install/update Python deps
+direnv allow         # or: devbox shell
 ```
 
 ## Commands
 
 ```bash
+devbox run test      # run tests
+devbox run lint      # lint
+devbox run format    # format
+devbox run typecheck # type check (strict mode)
+devbox run check     # all of the above
+mcp-score            # run the MCP server (after uv sync)
+```
+
+Or directly (inside devbox shell / after direnv allow):
+
+```bash
 pytest               # run tests
 ruff check .         # lint
 ruff format .        # format
-ruff format --check .  # check formatting
 pyright src/         # type check (strict mode)
-mcp-score            # run the MCP server (after uv sync)
 ```
+
+**Multi-line commits:** `devbox run -- git commit -m "$(cat ...)"` produces literal `\n`. Always use `git commit -F /tmp/msg.txt` for multi-line commit messages.
 
 ## Code conventions
 

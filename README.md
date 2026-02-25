@@ -37,7 +37,7 @@ mcp-score connects to any MCP-compatible AI assistant (Claude Desktop, Claude Co
 pip install mcp-score
 ```
 
-Or from source with Nix + direnv:
+Or from source ([Devbox](https://www.jetify.com/devbox) + direnv):
 
 ```bash
 git clone https://github.com/tskovlund/mcp-score.git
@@ -98,10 +98,11 @@ See [docs/architecture.md](docs/architecture.md) for detailed design documentati
 ## Development
 
 ```bash
-pytest               # run tests
-ruff check .         # lint
-ruff format .        # format
-pyright src/         # type check (strict mode)
+devbox run check     # run all checks (lint, format, typecheck, test)
+devbox run test      # run tests
+devbox run lint      # lint
+devbox run format    # format
+devbox run typecheck # type check (strict mode)
 ```
 
 ## Documentation

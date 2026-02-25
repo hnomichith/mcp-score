@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
+  "packages": ["python@3.13", "uv@latest", "ruff@latest", "pyright@latest"],
+  "shell": {
+    "init_hook": [
+      "if [ ! -d .venv ]; then uv venv --python python3.13; fi",
+      "source .venv/bin/activate",
+      "uv sync"
+    ],
+    "scripts": {
+      "test": "pytest",
+      "lint": "ruff check .",
+      "format": "ruff format .",
+      "typecheck": "pyright src/",
+      "check": "ruff check . && ruff format --check . && pyright src/ && pytest"
+    }
+  }
+}
