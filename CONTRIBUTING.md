@@ -86,15 +86,15 @@ pytest -k "test_install"  # run tests matching pattern
 
 ## PR process
 
-1. Create a feature branch from `main`
+All contributions go through pull requests — **do not push directly to `main`**.
+
+1. Fork or create a feature branch from `main`
 2. Make your changes
 3. Ensure `devbox run check` passes
 4. Push and create a pull request
 5. CI must pass (lint, format, typecheck, test)
-6. Address review feedback
-7. Merge
-
-For small fixes (typos, docs), direct commits to `main` are fine. For anything structural (new tools, architecture changes), use a branch and PR.
+6. A maintainer will review your PR — address any feedback
+7. The maintainer merges once approved
 
 ## Project structure
 
@@ -104,11 +104,13 @@ src/mcp_score/
   server.py           MCP server setup and tool imports
   app.py              Shared FastMCP instance
   tools/
-    connection.py     WebSocket bridge management tools
+    connection.py     Connect/disconnect MuseScore & Dorico, ping, score info
     analysis.py       Score reading tools (read_passage, get_measure_content)
     manipulation.py   Score modification tools (barlines, chords, keys, tempo)
   bridge/
-    client.py         WebSocket client for MuseScore plugin
+    base.py           ScoreBridge abstract base class
+    musescore.py      WebSocket client for MuseScore plugin
+    dorico.py         WebSocket client for Dorico Remote Control API
   musescore/
     plugin.qml        MuseScore 4 QML plugin (WebSocket server)
 
