@@ -51,31 +51,15 @@ pytest
 
 ## Code style
 
-Follow the code standards in [CONVENTIONS.md](CONVENTIONS.md). The Python-specific highlights:
+Follow the code standards in [CONVENTIONS.md](CONVENTIONS.md) — code quality,
+testing, commit conventions, and Python-specific rules are all defined there.
 
-- Pyright strict mode, Ruff for linting/formatting (line length 88)
-- `__all__` in every module, full variable names, src layout
-
-## Commit conventions
-
-This project uses [Conventional Commits](https://conventionalcommits.org), enforced by a git hook:
-
-```
-feat: add tempo detection tool
-fix: handle missing key signature in MusicXML export
-refactor: extract barline normalization to helper
-docs: update plugin installation instructions
-test: add tests for chord symbol parsing
-```
-
-**Note:** When committing through devbox (`devbox run -- git commit`), write multi-line messages to a temp file and use `git commit -F /tmp/msg.txt` instead of `-m` with a HEREDOC — devbox can produce literal `\n` otherwise.
+**Devbox commit gotcha:** When committing through devbox (`devbox run -- git
+commit`), write multi-line messages to a temp file and use `git commit -F
+/tmp/msg.txt` instead of `-m` with a HEREDOC — devbox can produce literal `\n`
+otherwise.
 
 ## Tests
-
-- **Naming:** `test_action_expectation` (e.g. `test_create_score_sets_key_signature`)
-- **Structure:** Arrange / Act / Assert comments in every test
-- **Lean:** every test must earn its place by adding value
-- **Location:** `tests/` directory, one file per module (e.g. `test_bridge.py`, `test_cli.py`)
 
 ```bash
 pytest                    # run all tests

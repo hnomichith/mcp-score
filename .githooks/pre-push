@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Run full test suite and type checking before push.
+
+echo "pre-push: running tests..."
+pytest || exit 1
+
+echo "pre-push: running type check..."
+pyright src/ || exit 1
