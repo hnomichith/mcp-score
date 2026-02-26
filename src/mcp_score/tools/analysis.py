@@ -38,8 +38,8 @@ async def read_passage(
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(start_measure, "start_measure"):
-        return err
+    if error := check_measure(start_measure, "start_measure"):
+        return error
     if end_measure < start_measure:
         return to_json({"error": "end_measure must be >= start_measure."})
 
@@ -81,8 +81,8 @@ async def get_measure_content(measure: int, staff: int = 0) -> str:
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(measure):
-        return err
+    if error := check_measure(measure):
+        return error
 
     await bridge.go_to_measure(measure)
     await bridge.go_to_staff(staff)

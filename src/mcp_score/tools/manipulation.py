@@ -17,8 +17,8 @@ async def add_live_rehearsal_mark(measure: int, text: str) -> str:
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(measure):
-        return err
+    if error := check_measure(measure):
+        return error
 
     await bridge.go_to_measure(measure)
     result = await bridge.add_rehearsal_mark(text)
@@ -36,8 +36,8 @@ async def add_live_chord_symbol(measure: int, symbol: str) -> str:
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(measure):
-        return err
+    if error := check_measure(measure):
+        return error
 
     await bridge.go_to_measure(measure)
     result = await bridge.add_chord_symbol(symbol)
@@ -55,8 +55,8 @@ async def set_live_barline(measure: int, barline_type: str) -> str:
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(measure):
-        return err
+    if error := check_measure(measure):
+        return error
 
     await bridge.go_to_measure(measure)
     result = await bridge.set_barline(barline_type)
@@ -75,8 +75,8 @@ async def set_live_key_signature(measure: int, fifths: int) -> str:
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(measure):
-        return err
+    if error := check_measure(measure):
+        return error
 
     await bridge.go_to_measure(measure)
     result = await bridge.set_key_signature(fifths)
@@ -95,8 +95,8 @@ async def set_live_tempo(measure: int, bpm: int, text: str | None = None) -> str
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(measure):
-        return err
+    if error := check_measure(measure):
+        return error
 
     await bridge.go_to_measure(measure)
     result = await bridge.set_tempo(bpm, text)
@@ -121,8 +121,8 @@ async def transpose_passage(
     bridge = connected_bridge()
     if bridge is None:
         return to_json({"error": NOT_CONNECTED})
-    if err := check_measure(start_measure, "start_measure"):
-        return err
+    if error := check_measure(start_measure, "start_measure"):
+        return error
     if end_measure < start_measure:
         return to_json({"error": "end_measure must be >= start_measure."})
 
