@@ -122,6 +122,10 @@ mcp-score help             Show help
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, code style, and PR process.
 
+## Author
+
+Thomas Skovlund Hansen — [thomas@skovlund.dev](mailto:thomas@skovlund.dev)
+
 ## License
 
 [MIT](LICENSE)
