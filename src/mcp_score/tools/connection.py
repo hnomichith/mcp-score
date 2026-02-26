@@ -8,7 +8,9 @@ from mcp_score.bridge import (
     get_sibelius_bridge,
     set_active_bridge,
 )
+from mcp_score.bridge.dorico import DEFAULT_PORT as DORICO_DEFAULT_PORT
 from mcp_score.bridge.musescore import DEFAULT_PORT as MUSESCORE_DEFAULT_PORT
+from mcp_score.bridge.sibelius import DEFAULT_PORT as SIBELIUS_DEFAULT_PORT
 from mcp_score.tools import NOT_CONNECTED, connected_bridge, to_json
 
 __all__: list[str] = []
@@ -78,7 +80,9 @@ async def disconnect_from_musescore() -> str:
 
 
 @mcp.tool()
-async def connect_to_dorico(host: str = "localhost", port: int = 4560) -> str:
+async def connect_to_dorico(
+    host: str = "localhost", port: int = DORICO_DEFAULT_PORT
+) -> str:
     """Connect to a running Dorico instance via its Remote Control API.
 
     Dorico 4+ has a built-in WebSocket server (no plugin needed).
@@ -129,7 +133,9 @@ async def disconnect_from_dorico() -> str:
 
 
 @mcp.tool()
-async def connect_to_sibelius(host: str = "localhost", port: int = 1898) -> str:
+async def connect_to_sibelius(
+    host: str = "localhost", port: int = SIBELIUS_DEFAULT_PORT
+) -> str:
     """Connect to a running Sibelius instance via Sibelius Connect.
 
     Sibelius 2024.3+ has a built-in WebSocket server (no plugin needed).
