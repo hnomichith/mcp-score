@@ -120,6 +120,21 @@ class TestMuseScoreBridgeConvenienceMethods:
         bridge.send_command.assert_called_once_with("getCursorInfo")
 
     @pytest.mark.anyio()
+    async def test_get_properties_delegates_to_get_cursor_info(self) -> None:
+        # Arrange
+        bridge = MuseScoreBridge()
+        bridge.send_command = AsyncMock(
+            return_value={"measure": 1, "beat": 1, "staff": 0}
+        )
+
+        # Act
+        result = await bridge.get_properties()
+
+        # Assert
+        bridge.send_command.assert_called_once_with("getCursorInfo")
+        assert result["measure"] == 1
+
+    @pytest.mark.anyio()
     async def test_go_to_measure_calls_send_command(self) -> None:
         # Arrange
         bridge = MuseScoreBridge()

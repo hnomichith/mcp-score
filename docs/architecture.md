@@ -25,7 +25,7 @@ mcp-score provides two complementary approaches for AI-driven music notation:
 | Claude Skill   |   | (src/mcp_score/)            |
 |                |   |                             |
 | Writes music21 |   | tools/connection.py (8)     |
-| Python script  |   | tools/analysis.py   (2)     |
+| Python script  |   | tools/analysis.py   (3)     |
 | -> MusicXML    |   | tools/manipulation.py (7)   |
 +----------------+   |                             |
                      | bridge/                     |
@@ -157,7 +157,7 @@ src/mcp_score/
   tools/
     __init__.py         Shared helpers: connected_bridge(), to_json(), etc.
     connection.py       8 tools: connect/disconnect MuseScore, Dorico & Sibelius, ping, info
-    analysis.py         2 tools: read_passage, get_measure_content
+    analysis.py         3 tools: read_passage, get_measure_content, get_selection_properties
     manipulation.py     7 tools: live rehearsal marks, chords, barlines, keys,
                                  tempo, transpose, undo
   bridge/

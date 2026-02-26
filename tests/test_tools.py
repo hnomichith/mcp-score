@@ -395,6 +395,39 @@ class TestGetMeasureContent:
         assert result["notes"] == ["C4"]
 
 
+class TestGetSelectionProperties:
+    @pytest.mark.anyio()
+    async def test_requires_connection(self) -> None:
+        # Arrange
+        from mcp_score.tools.analysis import get_selection_properties
+
+        with patch("mcp_score.tools.get_active_bridge", return_value=None):
+            # Act
+            result = json.loads(await get_selection_properties())
+
+        # Assert
+        assert "error" in result
+        assert NOT_CONNECTED in result["error"]
+
+    @pytest.mark.anyio()
+    async def test_returns_properties(self) -> None:
+        # Arrange
+        from mcp_score.tools.analysis import get_selection_properties
+
+        mock_bridge = AsyncMock()
+        mock_bridge.is_connected = True
+        mock_bridge.get_properties = AsyncMock(
+            return_value={"Properties": [{"Name": "kNoteHideStem"}]}
+        )
+
+        with patch("mcp_score.tools.get_active_bridge", return_value=mock_bridge):
+            # Act
+            result = json.loads(await get_selection_properties())
+
+        # Assert
+        assert result["Properties"][0]["Name"] == "kNoteHideStem"
+
+
 class TestTransposePassageErrorBranch:
     @pytest.mark.anyio()
     async def test_returns_error_when_select_range_fails(self) -> None:

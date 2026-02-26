@@ -158,7 +158,7 @@ class MuseScoreBridge(ScoreBridge):
 
         Returns cursor info as MuseScore's equivalent of selection properties.
         """
-        return await self.send_command("getCursorInfo")
+        return await self.get_cursor_info()
 
     async def go_to_measure(self, measure: int) -> dict[str, Any]:
         """Navigate to a specific measure (1-indexed)."""
