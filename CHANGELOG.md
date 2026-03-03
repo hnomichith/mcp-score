@@ -15,3 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Comprehensive test suite (145 tests)
 - Full documentation (architecture, reference, getting-started)
 - GitHub security: CodeQL scanning, branch protection, SECURITY.md
+- Score metadata: subtitle (movementName), arranger (Contributor), copyright support
+- Prompt request PR workflow in CONTRIBUTING.md
+
+### Changed
+- Skill now asks user for missing metadata (title, composer, arranger, subtitle, copyright) instead of silently using defaults
+- Chord repetition intervals are context-aware: divides phrase length evenly instead of fixed "every 4 bars"
