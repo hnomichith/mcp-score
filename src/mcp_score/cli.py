@@ -20,6 +20,9 @@ _PLUGIN_DIRS: dict[str, Path] = {
         Path.home() / "Library" / "Application Support" / "MuseScore4" / "Plugins"
     ),
     "Linux": Path.home() / ".local" / "share" / "MuseScore4" / "Plugins",
+    "Windows": (
+        Path.home() / "AppData" / "Local" / "MuseScore" / "MuseScore4" / "Plugins"
+    ),
 }
 
 
@@ -100,7 +103,7 @@ def install_plugin() -> bool:
 
     if plugin_dir is None:
         sys.stderr.write(f"Error: unsupported platform '{system}'.\n")
-        sys.stderr.write("Supported: macOS (Darwin), Linux.\n")
+        sys.stderr.write("Supported: macOS (Darwin), Linux, Windows.\n")
         sys.stderr.write(
             "Manual install: copy src/mcp_score/musescore/plugin.qml"
             " to your MuseScore Plugins directory.\n"
