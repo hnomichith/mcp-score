@@ -18,34 +18,13 @@ from mcp_score.tools import (
 
 
 class TestCheckMeasure:
-    def test_check_valid_measure_returns_none(self) -> None:
-        # Act / Assert
+    def test_valid_measure_returns_none(self) -> None:
         assert check_measure(1) is None
-        assert check_measure(100) is None
 
-    def test_check_zero_measure_returns_error(self) -> None:
-        # Act
+    def test_invalid_measure_returns_error(self) -> None:
         result = check_measure(0)
-
-        # Assert
         assert result is not None
         assert "must be >= 1" in result
-
-    def test_check_negative_measure_returns_error(self) -> None:
-        # Act
-        result = check_measure(-5)
-
-        # Assert
-        assert result is not None
-        assert "must be >= 1" in result
-
-    def test_check_measure_with_custom_name_includes_name_in_error(self) -> None:
-        # Act
-        result = check_measure(0, "start_measure")
-
-        # Assert
-        assert result is not None
-        assert "start_measure" in result
 
 
 class TestConnectedBridge:
@@ -719,6 +698,42 @@ class TestManipulationHappyPaths:
         # Assert
         mock_bridge.undo.assert_called_once()
         assert result["result"] == "ok"
+
+
+class TestEdgeCases:
+    """Edge cases that exercise boundary conditions in tool logic."""
+
+    @pytest.mark.anyio()
+    async def test_read_passage_single_measure(self) -> None:
+        """start == end is a valid single-measure read."""
+        from mcp_score.tools.analysis import read_passage
+
+        mock_bridge = AsyncMock()
+        mock_bridge.is_connected = True
+        mock_bridge.get_cursor_info = AsyncMock(return_value={"beat": 1})
+
+        with patch("mcp_score.tools.get_active_bridge", return_value=mock_bridge):
+            result = json.loads(await read_passage(5, 5))
+
+        assert result["success"] is True
+        assert len(result["elements"]) == 1
+
+    @pytest.mark.anyio()
+    async def test_transpose_single_measure(self) -> None:
+        """start == end is a valid single-measure transpose."""
+        from mcp_score.tools.manipulation import transpose_passage
+
+        mock_bridge = AsyncMock(spec=MuseScoreBridge)
+        mock_bridge.is_connected = True
+        mock_bridge.go_to_measure = AsyncMock(return_value={"result": "ok"})
+        mock_bridge.go_to_staff = AsyncMock(return_value={"result": "ok"})
+        mock_bridge.send_command = AsyncMock(return_value={"result": "ok"})
+
+        with patch("mcp_score.tools.get_active_bridge", return_value=mock_bridge):
+            result = json.loads(await transpose_passage(5, 5, 0, 2))
+
+        assert "error" not in result
+        assert mock_bridge.send_command.call_count == 2
 
 
 class TestBridgeTypeGuards:

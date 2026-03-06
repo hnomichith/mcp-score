@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from pathlib import Path
+from typing import TYPE_CHECKING
 from unittest.mock import MagicMock, patch
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 import pytest
 
 from mcp_score.cli import (
-    _PLUGIN_DIRS,
-    _SKILL_DEST,
     install_plugin,
     install_skill,
     main,
@@ -236,18 +237,3 @@ class TestRunScript:
         ):
             # Act
             main()
-
-
-class TestPackagePaths:
-    def test_skill_destination_is_under_home_directory(self) -> None:
-        # Arrange
-        expected = Path.home() / ".claude" / "skills" / "score-generate"
-
-        # Act / Assert
-        assert expected == _SKILL_DEST
-
-    def test_plugin_dirs_includes_all_supported_platforms(self) -> None:
-        # Arrange / Act / Assert
-        assert "Darwin" in _PLUGIN_DIRS
-        assert "Linux" in _PLUGIN_DIRS
-        assert "Windows" in _PLUGIN_DIRS

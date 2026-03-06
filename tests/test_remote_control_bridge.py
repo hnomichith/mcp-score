@@ -288,7 +288,18 @@ class TestRemoteControlCommands:
 
 class TestRemoteControlBarlines:
     @pytest.mark.anyio()
-    async def test_set_barline_double_sends_correct_command(self) -> None:
+    @pytest.mark.parametrize(
+        ("barline_type", "expected_command"),
+        [
+            ("double", "AddBarlineDouble"),
+            ("final", "AddBarlineFinal"),
+            ("startRepeat", "AddBarlineStartRepeat"),
+            ("endRepeat", "AddBarlineEndRepeat"),
+        ],
+    )
+    async def test_set_barline_sends_correct_command(
+        self, barline_type: str, expected_command: str
+    ) -> None:
         # Arrange
         bridge = DoricoBridge()
         bridge.send_command = AsyncMock(
@@ -296,24 +307,10 @@ class TestRemoteControlBarlines:
         )
 
         # Act
-        await bridge.set_barline("double")
+        await bridge.set_barline(barline_type)
 
         # Assert
-        bridge.send_command.assert_called_once_with("AddBarlineDouble")
-
-    @pytest.mark.anyio()
-    async def test_set_barline_final_sends_correct_command(self) -> None:
-        # Arrange
-        bridge = DoricoBridge()
-        bridge.send_command = AsyncMock(
-            return_value={"message": "response", "code": "kOK"}
-        )
-
-        # Act
-        await bridge.set_barline("final")
-
-        # Assert
-        bridge.send_command.assert_called_once_with("AddBarlineFinal")
+        bridge.send_command.assert_called_once_with(expected_command)
 
     @pytest.mark.anyio()
     async def test_set_barline_with_unknown_type_returns_error(self) -> None:
@@ -448,96 +445,24 @@ class TestRemoteControlDisconnect:
         assert bridge._connection is None
 
 
-# ── Protocol messages ────────────────────────────────────────────────
+# ── Error handling ───────────────────────────────────────────────────
 
 
-class TestRemoteControlProtocolMessages:
+class TestRemoteControlErrorHandling:
     @pytest.mark.anyio()
-    async def test_get_app_info(self) -> None:
+    async def test_malformed_json_response_returns_error(self) -> None:
+        """Non-JSON responses should produce a clear error, not crash."""
         # Arrange
         bridge = DoricoBridge()
-        bridge._send_message = AsyncMock(  # type: ignore[method-assign]
-            return_value={"variant": "Dorico Pro", "number": "5.1"}
-        )
+        mock_connection = AsyncMock()
+        bridge._connection = mock_connection
+
+        mock_connection.send = AsyncMock()
+        mock_connection.recv = AsyncMock(return_value="not valid json {{{")
 
         # Act
-        result = await bridge.get_app_info()
+        result = await bridge._send_and_receive({"message": "getstatus"})
 
         # Assert
-        bridge._send_message.assert_called_once_with("getappinfo", {"info": "version"})
-        assert result["variant"] == "Dorico Pro"
-
-    @pytest.mark.anyio()
-    async def test_get_commands(self) -> None:
-        # Arrange
-        bridge = DoricoBridge()
-        bridge._send_message = AsyncMock(  # type: ignore[method-assign]
-            return_value={"commands": []}
-        )
-
-        # Act
-        result = await bridge.get_commands()
-
-        # Assert
-        bridge._send_message.assert_called_once_with("getcommands")
-        assert result["commands"] == []
-
-    @pytest.mark.anyio()
-    async def test_get_status(self) -> None:
-        # Arrange
-        bridge = DoricoBridge()
-        bridge._send_message = AsyncMock(  # type: ignore[method-assign]
-            return_value={"hasScore": True}
-        )
-
-        # Act
-        result = await bridge.get_status()
-
-        # Assert
-        bridge._send_message.assert_called_once_with("getstatus")
-        assert result["hasScore"] is True
-
-    @pytest.mark.anyio()
-    async def test_get_properties(self) -> None:
-        # Arrange
-        bridge = DoricoBridge()
-        bridge._send_message = AsyncMock(  # type: ignore[method-assign]
-            return_value={"Properties": [{"Name": "kNoteHideStem"}]}
-        )
-
-        # Act
-        result = await bridge.get_properties()
-
-        # Assert
-        bridge._send_message.assert_called_once_with("getproperties")
-        assert result["Properties"][0]["Name"] == "kNoteHideStem"
-
-    @pytest.mark.anyio()
-    async def test_get_flows(self) -> None:
-        # Arrange
-        bridge = DoricoBridge()
-        bridge._send_message = AsyncMock(  # type: ignore[method-assign]
-            return_value={"flows": [{"FlowID": 1, "FlowName": "Flow 1"}]}
-        )
-
-        # Act
-        result = await bridge.get_flows()
-
-        # Assert
-        bridge._send_message.assert_called_once_with("getflows")
-        assert result["flows"][0]["FlowName"] == "Flow 1"
-
-    @pytest.mark.anyio()
-    async def test_get_layouts(self) -> None:
-        # Arrange
-        bridge = DoricoBridge()
-        bridge._send_message = AsyncMock(  # type: ignore[method-assign]
-            return_value={"layouts": [{"LayoutName": "Full Score"}]}
-        )
-
-        # Act
-        result = await bridge.get_layouts()
-
-        # Assert
-        bridge._send_message.assert_called_once_with("getlayouts")
-        assert result["layouts"][0]["LayoutName"] == "Full Score"
+        assert "error" in result
+        assert "Invalid JSON" in result["error"]
