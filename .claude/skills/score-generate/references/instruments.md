@@ -4,78 +4,78 @@ music21 instrument classes and their properties. Use these exact class names.
 
 ## Woodwinds
 
-| Name | Class | Transposition |
-|---|---|---|
-| Piccolo | `instrument.Piccolo()` | Octave up |
-| Flute | `instrument.Flute()` | Concert pitch |
-| Oboe | `instrument.Oboe()` | Concert pitch |
-| English Horn | `instrument.EnglishHorn()` | F (down P5) |
-| Clarinet (Bb) | `instrument.Clarinet()` | Bb (down M2) |
-| Bass Clarinet | `instrument.BassClarinet()` | Bb (down M9) |
-| Bassoon | `instrument.Bassoon()` | Concert pitch |
-| Soprano Sax | `instrument.SopranoSaxophone()` | Bb (down M2) |
-| Alto Sax | `instrument.AltoSaxophone()` | Eb (down M6) |
-| Tenor Sax | `instrument.TenorSaxophone()` | Bb (down M9) |
-| Baritone Sax | `instrument.BaritoneSaxophone()` | Eb (down M13) |
+| Name          | Class                            | Transposition |
+| ------------- | -------------------------------- | ------------- |
+| Piccolo       | `instrument.Piccolo()`           | Octave up     |
+| Flute         | `instrument.Flute()`             | Concert pitch |
+| Oboe          | `instrument.Oboe()`              | Concert pitch |
+| English Horn  | `instrument.EnglishHorn()`       | F (down P5)   |
+| Clarinet (Bb) | `instrument.Clarinet()`          | Bb (down M2)  |
+| Bass Clarinet | `instrument.BassClarinet()`      | Bb (down M9)  |
+| Bassoon       | `instrument.Bassoon()`           | Concert pitch |
+| Soprano Sax   | `instrument.SopranoSaxophone()`  | Bb (down M2)  |
+| Alto Sax      | `instrument.AltoSaxophone()`     | Eb (down M6)  |
+| Tenor Sax     | `instrument.TenorSaxophone()`    | Bb (down M9)  |
+| Baritone Sax  | `instrument.BaritoneSaxophone()` | Eb (down M13) |
 
 ## Brass
 
-| Name | Class | Transposition |
-|---|---|---|
-| Trumpet (Bb) | `instrument.Trumpet()` | Bb (down M2) |
-| French Horn (F) | `instrument.Horn()` | F (down P5) |
-| Trombone | `instrument.Trombone()` | Concert pitch |
-| Bass Trombone | `instrument.BassTrombone()` | Concert pitch |
-| Tuba | `instrument.Tuba()` | Concert pitch |
+| Name            | Class                       | Transposition |
+| --------------- | --------------------------- | ------------- |
+| Trumpet (Bb)    | `instrument.Trumpet()`      | Bb (down M2)  |
+| French Horn (F) | `instrument.Horn()`         | F (down P5)   |
+| Trombone        | `instrument.Trombone()`     | Concert pitch |
+| Bass Trombone   | `instrument.BassTrombone()` | Concert pitch |
+| Tuba            | `instrument.Tuba()`         | Concert pitch |
 
 ## Strings
 
-| Name | Class | Transposition |
-|---|---|---|
-| Violin | `instrument.Violin()` | Concert pitch |
-| Viola | `instrument.Viola()` | Concert pitch (alto clef) |
-| Cello | `instrument.Violoncello()` | Concert pitch |
-| Double Bass | `instrument.Contrabass()` | Octave down |
+| Name        | Class                      | Transposition             |
+| ----------- | -------------------------- | ------------------------- |
+| Violin      | `instrument.Violin()`      | Concert pitch             |
+| Viola       | `instrument.Viola()`       | Concert pitch (alto clef) |
+| Cello       | `instrument.Violoncello()` | Concert pitch             |
+| Double Bass | `instrument.Contrabass()`  | Octave down               |
 
 ## Keyboards
 
-| Name | Class | Transposition |
-|---|---|---|
-| Piano | `instrument.Piano()` | Concert pitch |
-| Organ | `instrument.Organ()` | Concert pitch |
+| Name           | Class                        | Transposition |
+| -------------- | ---------------------------- | ------------- |
+| Piano          | `instrument.Piano()`         | Concert pitch |
+| Organ          | `instrument.Organ()`         | Concert pitch |
 | Electric Piano | `instrument.ElectricPiano()` | Concert pitch |
-| Harpsichord | `instrument.Harpsichord()` | Concert pitch |
+| Harpsichord    | `instrument.Harpsichord()`   | Concert pitch |
 
 ## Guitar and Bass
 
 Guitar sounds an octave below written pitch in real life, but music21 does **not** encode this as a transposition. Write notes at the **written pitch** (not sounding pitch) for these instruments.
 
-| Name | Class | Transposition in music21 |
-|---|---|---|
+| Name            | Class                         | Transposition in music21         |
+| --------------- | ----------------------------- | -------------------------------- |
 | Acoustic Guitar | `instrument.AcousticGuitar()` | Concert pitch (no transposition) |
 | Electric Guitar | `instrument.ElectricGuitar()` | Concert pitch (no transposition) |
-| Acoustic Bass | `instrument.AcousticBass()` | Concert pitch (no transposition) |
-| Electric Bass | `instrument.ElectricBass()` | Concert pitch (no transposition) |
+| Acoustic Bass   | `instrument.AcousticBass()`   | Concert pitch (no transposition) |
+| Electric Bass   | `instrument.ElectricBass()`   | Concert pitch (no transposition) |
 
 For jazz rhythm sections, prefer `AcousticBass()` or `ElectricBass()` over `Contrabass()` — the latter applies an octave-down transposition suited for orchestral double bass.
 
 ## Percussion
 
-| Name | Class | Notes |
-|---|---|---|
+| Name             | Class                              | Notes     |
+| ---------------- | ---------------------------------- | --------- |
 | Drums / Drum Set | `instrument.UnpitchedPercussion()` | Unpitched |
 
 ## Voices
 
 Ranges are conventional (not enforced by music21).
 
-| Name | Class | Typical Range |
-|---|---|---|
-| Soprano | `instrument.Soprano()` | C4–C6 |
-| Alto | `instrument.Alto()` | F3–F5 |
-| Tenor | `instrument.Tenor()` | C3–C5 |
-| Baritone | `instrument.Baritone()` | A2–A4 |
-| Bass | `instrument.Bass()` | E2–E4 |
+| Name     | Class                   | Typical Range |
+| -------- | ----------------------- | ------------- |
+| Soprano  | `instrument.Soprano()`  | C4–C6         |
+| Alto     | `instrument.Alto()`     | F3–F5         |
+| Tenor    | `instrument.Tenor()`    | C3–C5         |
+| Baritone | `instrument.Baritone()` | A2–A4         |
+| Bass     | `instrument.Bass()`     | E2–E4         |
 
 ## Numbered Parts
 

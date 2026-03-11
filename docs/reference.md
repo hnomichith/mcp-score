@@ -16,10 +16,10 @@ Connecting to a new application automatically disconnects any existing active co
 
 Connect to a running MuseScore instance. The MCP Score Bridge QML plugin must be installed and running in MuseScore.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `host` | `str` | `"localhost"` | WebSocket host |
-| `port` | `int` | `8765` | WebSocket port |
+| Parameter | Type  | Default       | Description    |
+| --------- | ----- | ------------- | -------------- |
+| `host`    | `str` | `"localhost"` | WebSocket host |
+| `port`    | `int` | `8765`        | WebSocket port |
 
 ### `disconnect_from_musescore`
 
@@ -29,10 +29,10 @@ Disconnect from MuseScore. No parameters.
 
 Connect to a running Dorico instance via its built-in Remote Control API. Dorico 4+ has a built-in WebSocket server — no plugin required. The Remote Control API must be enabled in Dorico's preferences.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `host` | `str` | `"localhost"` | WebSocket host |
-| `port` | `int` | `4560` | WebSocket port (Dorico's default) |
+| Parameter | Type  | Default       | Description                       |
+| --------- | ----- | ------------- | --------------------------------- |
+| `host`    | `str` | `"localhost"` | WebSocket host                    |
+| `port`    | `int` | `4560`        | WebSocket port (Dorico's default) |
 
 ### `disconnect_from_dorico`
 
@@ -42,10 +42,10 @@ Disconnect from Dorico. No parameters.
 
 Connect to a running Sibelius instance via Sibelius Connect. Sibelius 2024.3+ has a built-in WebSocket server — no plugin required. Requires the Sibelius Ultimate tier. The port is configurable in Sibelius's preferences.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `host` | `str` | `"localhost"` | WebSocket host |
-| `port` | `int` | `1898` | WebSocket port (Sibelius Connect's default) |
+| Parameter | Type  | Default       | Description                                 |
+| --------- | ----- | ------------- | ------------------------------------------- |
+| `host`    | `str` | `"localhost"` | WebSocket host                              |
+| `port`    | `int` | `1898`        | WebSocket port (Sibelius Connect's default) |
 
 ### `disconnect_from_sibelius`
 
@@ -71,11 +71,11 @@ Read musical content from the connected score application. All analysis tools re
 
 Read musical content from a range of measures. Returns notes, rests, and musical elements in the specified range.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `start_measure` | `int` | (required) | First measure to read (1-indexed) |
-| `end_measure` | `int` | (required) | Last measure to read (inclusive, 1-indexed) |
-| `staff` | `int \| None` | `None` | Staff index (0-indexed). Omit to read all staves. |
+| Parameter       | Type          | Default    | Description                                       |
+| --------------- | ------------- | ---------- | ------------------------------------------------- |
+| `start_measure` | `int`         | (required) | First measure to read (1-indexed)                 |
+| `end_measure`   | `int`         | (required) | Last measure to read (inclusive, 1-indexed)       |
+| `staff`         | `int \| None` | `None`     | Staff index (0-indexed). Omit to read all staves. |
 
 Works best with MuseScore. When connected to Dorico or Sibelius, the response includes a `warning` field explaining the data limitations.
 
@@ -83,10 +83,10 @@ Works best with MuseScore. When connected to Dorico or Sibelius, the response in
 
 Read the content of a specific measure and staff.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| Parameter | Type  | Default    | Description                |
+| --------- | ----- | ---------- | -------------------------- |
 | `measure` | `int` | (required) | Measure number (1-indexed) |
-| `staff` | `int` | `0` | Staff index (0-indexed) |
+| `staff`   | `int` | `0`        | Staff index (0-indexed)    |
 
 Works best with MuseScore. When connected to Dorico or Sibelius, the response includes a `warning` field explaining the data limitations.
 
@@ -118,10 +118,10 @@ Modify the live score in the connected application. All manipulation tools requi
 
 Add a rehearsal mark at the start of the specified measure.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `measure` | `int` | Measure number (1-indexed) |
-| `text` | `str` | Rehearsal mark text (e.g. `"A"`, `"B"`, `"Intro"`) |
+| Parameter | Type  | Description                                        |
+| --------- | ----- | -------------------------------------------------- |
+| `measure` | `int` | Measure number (1-indexed)                         |
+| `text`    | `str` | Rehearsal mark text (e.g. `"A"`, `"B"`, `"Intro"`) |
 
 When connected to Dorico or Sibelius, the `text` parameter is ignored and the application uses its own auto-numbering. The response includes a `warning` field in that case.
 
@@ -129,10 +129,10 @@ When connected to Dorico or Sibelius, the `text` parameter is ignored and the ap
 
 Add a chord symbol at the start of the specified measure.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `measure` | `int` | Measure number (1-indexed) |
-| `symbol` | `str` | Chord symbol (e.g. `"Cmaj7"`, `"Dm7"`, `"G7"`) |
+| Parameter | Type  | Description                                    |
+| --------- | ----- | ---------------------------------------------- |
+| `measure` | `int` | Measure number (1-indexed)                     |
+| `symbol`  | `str` | Chord symbol (e.g. `"Cmaj7"`, `"Dm7"`, `"G7"`) |
 
 Not supported with Dorico or Sibelius — returns an error for those applications.
 
@@ -140,9 +140,9 @@ Not supported with Dorico or Sibelius — returns an error for those application
 
 Set a barline type at the end of the specified measure.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `measure` | `int` | Measure number (1-indexed) |
+| Parameter      | Type  | Description                                                  |
+| -------------- | ----- | ------------------------------------------------------------ |
+| `measure`      | `int` | Measure number (1-indexed)                                   |
 | `barline_type` | `str` | One of `"double"`, `"final"`, `"startRepeat"`, `"endRepeat"` |
 
 Works with all three applications.
@@ -151,10 +151,10 @@ Works with all three applications.
 
 Set the key signature at the specified measure.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `measure` | `int` | Measure number (1-indexed) |
-| `fifths` | `int` | Sharps (positive) or flats (negative): `0` = C major, `2` = D major, `-3` = Eb major |
+| Parameter | Type  | Description                                                                          |
+| --------- | ----- | ------------------------------------------------------------------------------------ |
+| `measure` | `int` | Measure number (1-indexed)                                                           |
+| `fifths`  | `int` | Sharps (positive) or flats (negative): `0` = C major, `2` = D major, `-3` = Eb major |
 
 Not supported with Dorico or Sibelius — returns an error for those applications.
 
@@ -162,11 +162,11 @@ Not supported with Dorico or Sibelius — returns an error for those application
 
 Set the tempo at the specified measure.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `measure` | `int` | (required) | Measure number (1-indexed) |
-| `bpm` | `int` | (required) | Beats per minute |
-| `text` | `str \| None` | `None` | Optional display text (e.g. `"Swing"`, `"Allegro"`) |
+| Parameter | Type          | Default    | Description                                         |
+| --------- | ------------- | ---------- | --------------------------------------------------- |
+| `measure` | `int`         | (required) | Measure number (1-indexed)                          |
+| `bpm`     | `int`         | (required) | Beats per minute                                    |
+| `text`    | `str \| None` | `None`     | Optional display text (e.g. `"Swing"`, `"Allegro"`) |
 
 Not supported with Dorico or Sibelius — returns an error for those applications.
 
@@ -174,12 +174,12 @@ Not supported with Dorico or Sibelius — returns an error for those application
 
 Transpose a passage by a number of semitones.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `start_measure` | `int` | First measure (1-indexed) |
-| `end_measure` | `int` | Last measure (inclusive, 1-indexed) |
-| `staff` | `int` | Staff index (0-indexed) |
-| `semitones` | `int` | Semitones to transpose (positive = up, negative = down) |
+| Parameter       | Type  | Description                                             |
+| --------------- | ----- | ------------------------------------------------------- |
+| `start_measure` | `int` | First measure (1-indexed)                               |
+| `end_measure`   | `int` | Last measure (inclusive, 1-indexed)                     |
+| `staff`         | `int` | Staff index (0-indexed)                                 |
+| `semitones`     | `int` | Semitones to transpose (positive = up, negative = down) |
 
 Works with all three applications.
 

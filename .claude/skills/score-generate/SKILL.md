@@ -82,9 +82,11 @@ When the same chord spans multiple consecutive bars, do NOT notate it every bar:
 - **Never write the same chord on consecutive bars** unless it's a section boundary.
 
 Example — 12-bar blues in Bb, each `|` is a bar:
+
 ```
 Bb7 |    |    |    | Eb7 |    | Bb7 |    | F7  | Eb7 | Bb7 | F7
 ```
+
 Chord symbols appear on bars 1, 5, 6, 7, 9, 10, 11, 12 — NOT every bar.
 
 ### Score Metadata
@@ -135,10 +137,12 @@ for part in score.parts:
 ```
 
 Volta brackets work with repeat barlines:
+
 - The **last measure of the 1st ending** gets `rightBarline = bar.Repeat(direction='end')` (player repeats back)
 - The **last measure of the 2nd ending** gets a regular barline (player continues)
 
 For multi-measure endings, pass a list of measures:
+
 ```python
 part.append(spanner.RepeatBracket([m13, m14, m15], number=1))
 ```
@@ -183,6 +187,7 @@ See `references/template.py` for a complete, runnable template. Key patterns:
 ### "Write me a 12-bar blues lead sheet in Bb"
 
 Script creates:
+
 - Single part (Piano or lead instrument)
 - Key: B- major, Time: 4/4, Tempo: ~120 BPM
 - 12 measures with whole rests
@@ -193,6 +198,7 @@ Script creates:
 ### "Create a big band chart — 32-bar AABA, Bb major, slow blues at 66 BPM"
 
 Script creates:
+
 - 17 parts: Alto Sax 1-2, Tenor Sax 1-2, Bari Sax, Trumpet 1-4, Trombone 1-3, Bass Trombone, Piano, Guitar, Bass, Drums
 - Uses correct instrument classes (AltoSaxophone, TenorSaxophone, etc.)
 - Key/time signature on every part's first measure

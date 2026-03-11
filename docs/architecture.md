@@ -107,17 +107,17 @@ The Remote Control WebSocket API (shared by Dorico and Sibelius) is fundamentall
 
 ### What the WebSocket API can do
 
-| Capability | MuseScore | Dorico | Sibelius |
-|-----------|:---------:|:------:|:--------:|
-| Execute commands (undo, navigation, barlines, rehearsal marks) | Yes | Yes (~994 commands) | Yes (900+ commands) |
-| Get application status | Yes | Yes | Yes |
-| Get selection properties | Yes | Yes | Yes |
-| Get flows and layouts | N/A | Yes | Unknown |
-| Set barlines | Yes | Yes | Yes |
-| Add rehearsal marks | Yes (with custom text) | Yes (auto-numbered only) | Yes (auto-numbered only) |
-| Navigate to measure | Yes | Yes | Yes |
-| Read note content | Yes (via QML plugin) | No | No |
-| Read cursor position | Yes (measure, beat, staff) | Limited (UI state only) | Limited (UI state only) |
+| Capability                                                     |         MuseScore          |          Dorico          |         Sibelius         |
+| -------------------------------------------------------------- | :------------------------: | :----------------------: | :----------------------: |
+| Execute commands (undo, navigation, barlines, rehearsal marks) |            Yes             |   Yes (~994 commands)    |   Yes (900+ commands)    |
+| Get application status                                         |            Yes             |           Yes            |           Yes            |
+| Get selection properties                                       |            Yes             |           Yes            |           Yes            |
+| Get flows and layouts                                          |            N/A             |           Yes            |         Unknown          |
+| Set barlines                                                   |            Yes             |           Yes            |           Yes            |
+| Add rehearsal marks                                            |   Yes (with custom text)   | Yes (auto-numbered only) | Yes (auto-numbered only) |
+| Navigate to measure                                            |            Yes             |           Yes            |           Yes            |
+| Read note content                                              |    Yes (via QML plugin)    |            No            |            No            |
+| Read cursor position                                           | Yes (measure, beat, staff) | Limited (UI state only)  | Limited (UI state only)  |
 
 ### What the WebSocket API cannot do (and why)
 
@@ -221,36 +221,36 @@ Manages which bridge is active. `get_active_bridge()` returns the current bridge
 
 ### Connection (8 tools)
 
-| Tool | Purpose |
-|------|---------|
-| `connect_to_musescore` | Connect to MuseScore (configurable host/port) |
-| `disconnect_from_musescore` | Close the MuseScore connection |
-| `connect_to_dorico` | Connect to Dorico Remote Control API |
-| `disconnect_from_dorico` | Close the Dorico connection |
-| `connect_to_sibelius` | Connect to Sibelius Connect API |
-| `disconnect_from_sibelius` | Close the Sibelius connection |
-| `get_live_score_info` | Get info about the open score (any app) |
-| `ping_score_app` | Check if connected app is responsive (any app) |
+| Tool                        | Purpose                                        |
+| --------------------------- | ---------------------------------------------- |
+| `connect_to_musescore`      | Connect to MuseScore (configurable host/port)  |
+| `disconnect_from_musescore` | Close the MuseScore connection                 |
+| `connect_to_dorico`         | Connect to Dorico Remote Control API           |
+| `disconnect_from_dorico`    | Close the Dorico connection                    |
+| `connect_to_sibelius`       | Connect to Sibelius Connect API                |
+| `disconnect_from_sibelius`  | Close the Sibelius connection                  |
+| `get_live_score_info`       | Get info about the open score (any app)        |
+| `ping_score_app`            | Check if connected app is responsive (any app) |
 
 ### Analysis (3 tools)
 
-| Tool | Purpose |
-|------|---------|
-| `read_passage` | Read content from a range of measures |
-| `get_measure_content` | Read a specific measure and staff |
+| Tool                       | Purpose                                 |
+| -------------------------- | --------------------------------------- |
+| `read_passage`             | Read content from a range of measures   |
+| `get_measure_content`      | Read a specific measure and staff       |
 | `get_selection_properties` | Get properties of the current selection |
 
 ### Manipulation (7 tools)
 
-| Tool | Purpose |
-|------|---------|
-| `add_live_rehearsal_mark` | Add a rehearsal mark |
-| `add_live_chord_symbol` | Add a chord symbol |
-| `set_live_barline` | Set a barline type |
-| `set_live_key_signature` | Set the key signature |
-| `set_live_tempo` | Set the tempo |
-| `transpose_passage` | Transpose by semitones |
-| `undo_last_action` | Undo the last action |
+| Tool                      | Purpose                |
+| ------------------------- | ---------------------- |
+| `add_live_rehearsal_mark` | Add a rehearsal mark   |
+| `add_live_chord_symbol`   | Add a chord symbol     |
+| `set_live_barline`        | Set a barline type     |
+| `set_live_key_signature`  | Set the key signature  |
+| `set_live_tempo`          | Set the tempo          |
+| `transpose_passage`       | Transpose by semitones |
+| `undo_last_action`        | Undo the last action   |
 
 ## Key design decisions
 
@@ -279,8 +279,8 @@ The MCP server provides primitives. Claude is the musical intelligence.
 
 ## Dependencies
 
-| Dependency | Purpose |
-|-----------|---------|
-| `mcp[cli]` | MCP SDK (FastMCP server framework) |
-| `music21` | Music theory library, MusicXML generation |
-| `websockets` | WebSocket client for bridge connections |
+| Dependency   | Purpose                                   |
+| ------------ | ----------------------------------------- |
+| `mcp[cli]`   | MCP SDK (FastMCP server framework)        |
+| `music21`    | Music theory library, MusicXML generation |
+| `websockets` | WebSocket client for bridge connections   |

@@ -111,12 +111,12 @@ mcp-score help             Show help
 
 ## Documentation
 
-| Document | Description |
-|----------|-------------|
-| [Getting started](docs/getting-started.md) | Set up mcp-score and generate your first score |
-| [Architecture](docs/architecture.md) | System design and key decisions |
-| [Tool reference](docs/reference.md) | Complete list of MCP tools |
-| [MuseScore plugin](docs/musescore-plugin.md) | Plugin installation and WebSocket protocol |
+| Document                                     | Description                                    |
+| -------------------------------------------- | ---------------------------------------------- |
+| [Getting started](docs/getting-started.md)   | Set up mcp-score and generate your first score |
+| [Architecture](docs/architecture.md)         | System design and key decisions                |
+| [Tool reference](docs/reference.md)          | Complete list of MCP tools                     |
+| [MuseScore plugin](docs/musescore-plugin.md) | Plugin installation and WebSocket protocol     |
 
 ## Contributing
 
