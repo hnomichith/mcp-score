@@ -40,3 +40,6 @@ result
 # Generated scores (user output, not tracked)
 output/
 score-projects/
+
+# Local Claude instructions (personal workflow, not shared)
+CLAUDE.local.md
