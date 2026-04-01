@@ -43,3 +43,10 @@ score-projects/
 
 # Local Claude instructions (personal workflow, not shared)
 CLAUDE.local.md
+
+# autodev runtime artifacts
+.autodev
+
+# Local scratch files
+.mcp.json
+musescore-mcp-websocket.qml
